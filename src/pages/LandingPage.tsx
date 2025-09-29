@@ -16,7 +16,8 @@ import {
   Play,
   Download,
   MessageCircle,
-  Phone
+  Phone,
+  Settings
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
@@ -34,6 +35,10 @@ const LandingPage: React.FC = () => {
 
   const handleDriverLogin = () => {
     navigate('/driver/auth');
+  };
+
+  const handleAdminLogin = () => {
+    navigate('/admin');
   };
 
   const handleLogout = () => {
@@ -147,6 +152,14 @@ const LandingPage: React.FC = () => {
                   >
                     <Car className="mr-2 h-4 w-4" />
                     Driver
+                  </Button>
+                  <Button 
+                    onClick={handleAdminLogin}
+                    variant="outline"
+                    size="sm"
+                  >
+                    <Settings className="mr-2 h-4 w-4" />
+                    Admin
                   </Button>
                 </div>
               )}
