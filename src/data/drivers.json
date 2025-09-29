@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Sunil P.",
+    "vehicle_number": "KL 47 B 5501",
+    "status": "available"
+  },
+  {
+    "id": 2,
+    "name": "Ravi K.",
+    "vehicle_number": "KL 47 C 1299",
+    "status": "available"
+  },
+  {
+    "id": 3,
+    "name": "Anish V.",
+    "vehicle_number": "KL 47 A 8876",
+    "status": "busy"
+  },
+  {
+    "id": 4,
+    "name": "Mahesh T.",
+    "vehicle_number": "KL 47 D 2134",
+    "status": "available"
+  },
+  {
+    "id": 5,
+    "name": "Krishnan M.",
+    "vehicle_number": "KL 47 E 9876",
+    "status": "available"
+  }
+]
