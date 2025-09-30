@@ -6,9 +6,24 @@ import { Code, Copy, Download, Users, Car } from 'lucide-react';
 import { database } from '@/lib/database';
 import { useToast } from '@/hooks/use-toast';
 
+/**
+ * Data API component for admin dashboard
+ * Provides comprehensive data access and export functionality for users and drivers
+ * 
+ * @component
+ * @returns {JSX.Element} The data API component
+ * 
+ * @example
+ * ```tsx
+ * <DataAPI />
+ * ```
+ */
 const DataAPI: React.FC = () => {
+  /** Complete data from database including users and drivers */
   const [allData, setAllData] = useState<any>(null);
+  /** Loading state during data operations */
   const [isLoading, setIsLoading] = useState(false);
+  /** Toast notification hook */
   const { toast } = useToast();
 
   const fetchAllData = async () => {

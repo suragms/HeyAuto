@@ -3,8 +3,22 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { database } from '@/lib/database';
 
+/**
+ * Local storage test component for development and debugging
+ * Provides tools to test and inspect localStorage data and database operations
+ * 
+ * @component
+ * @returns {JSX.Element} The local storage test component
+ * 
+ * @example
+ * ```tsx
+ * <LocalStorageTest />
+ * ```
+ */
 const LocalStorageTest: React.FC = () => {
+  /** List of drivers from database */
   const [drivers, setDrivers] = useState<any[]>([]);
+  /** Data stored in localStorage */
   const [localStorageData, setLocalStorageData] = useState<any>(null);
 
   useEffect(() => {

@@ -2,8 +2,29 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Props for the Textarea component
+ * @interface TextareaProps
+ */
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
 
+/**
+ * Textarea component for multi-line text input
+ * Styled textarea with consistent design and accessibility features
+ * 
+ * @component
+ * @param {TextareaProps} props - Textarea props
+ * @returns {JSX.Element} The textarea component
+ * 
+ * @example
+ * ```tsx
+ * <Textarea
+ *   placeholder="Enter your message..."
+ *   value={message}
+ *   onChange={(e) => setMessage(e.target.value)}
+ * />
+ * ```
+ */
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ className, ...props }, ref) => {
   return (
     <textarea

@@ -10,17 +10,35 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 
+/**
+ * User profile component for viewing and editing user information
+ * 
+ * @component
+ * @returns {JSX.Element} The user profile component
+ * 
+ * @example
+ * ```tsx
+ * <UserProfile />
+ * ```
+ */
 const UserProfile: React.FC = () => {
+  /** Authentication context */
   const { user, updateProfile, logout } = useAuth();
+  /** Toast notification hook */
   const { toast } = useToast();
+  /** Navigation hook */
   const navigate = useNavigate();
+  /** Whether profile is in edit mode */
   const [isEditing, setIsEditing] = useState(false);
+  /** Loading state during profile update */
   const [isLoading, setIsLoading] = useState(false);
+  /** Form data for editing profile */
   const [formData, setFormData] = useState({
     name: user?.name || '',
     email: user?.email || '',
     phone: user?.phone || ''
   });
+  /** Error message to display */
   const [error, setError] = useState('');
 
   const handleEdit = () => {

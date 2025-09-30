@@ -3,11 +3,32 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Loader2 } from 'lucide-react';
 
+/**
+ * Props for the ProtectedRoute component
+ * @interface ProtectedRouteProps
+ */
 interface ProtectedRouteProps {
+  /** Child components to render if authenticated */
   children: React.ReactNode;
 }
 
+/**
+ * Protected route component that requires authentication
+ * Redirects unauthenticated users to login page
+ * 
+ * @component
+ * @param {ProtectedRouteProps} props - Component props
+ * @returns {JSX.Element} The protected route component
+ * 
+ * @example
+ * ```tsx
+ * <ProtectedRoute>
+ *   <UserProfile />
+ * </ProtectedRoute>
+ * ```
+ */
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+  /** User authentication state and loading status */
   const { isAuthenticated, isLoading } = useAuth();
 
   if (isLoading) {

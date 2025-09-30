@@ -8,26 +8,59 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Loader2, Eye, EyeOff, Phone, Mail, ArrowLeft } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
+/**
+ * Props for the BackupLoginForm component
+ * @interface BackupLoginFormProps
+ */
 interface BackupLoginFormProps {
+  /** Function to switch to registration form */
   onSwitchToRegister: () => void;
+  /** Function to go back to email login */
   onBackToEmail: () => void;
+  /** Optional success callback */
   onSuccess?: () => void;
 }
 
+/**
+ * Backup login form component for alternative authentication methods
+ * Provides phone and OTP-based login options as backup to email login
+ * 
+ * @component
+ * @param {BackupLoginFormProps} props - Component props
+ * @returns {JSX.Element} The backup login form component
+ * 
+ * @example
+ * ```tsx
+ * <BackupLoginForm
+ *   onSwitchToRegister={() => setMode('register')}
+ *   onBackToEmail={() => setMode('email')}
+ *   onSuccess={() => navigate('/dashboard')}
+ * />
+ * ```
+ */
 const BackupLoginForm: React.FC<BackupLoginFormProps> = ({ 
   onSwitchToRegister, 
   onBackToEmail, 
   onSuccess 
 }) => {
+  /** Active tab in the form (phone or otp) */
   const [activeTab, setActiveTab] = useState('phone');
+  /** Phone number for login */
   const [phone, setPhone] = useState('');
+  /** Password for phone login */
   const [phonePassword, setPhonePassword] = useState('');
+  /** OTP code for verification */
   const [otp, setOtp] = useState('');
+  /** Whether OTP has been sent */
   const [otpSent, setOtpSent] = useState(false);
+  /** Whether password is visible */
   const [showPassword, setShowPassword] = useState(false);
+  /** Error message to display */
   const [error, setError] = useState('');
+  /** Loading state during authentication */
   const [isLoading, setIsLoading] = useState(false);
   
+  /** Authentication context */
   const { loginWithPhone, sendOTP, verifyOTP } = useAuth();
 
   const handlePhoneLogin = async (e: React.FormEvent) => {

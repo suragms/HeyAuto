@@ -23,10 +23,26 @@ import { database } from '@/lib/database';
 import { User } from '@/types/database';
 import { useToast } from '@/hooks/use-toast';
 
+/**
+ * Users data fetcher component for admin dashboard
+ * Provides comprehensive user data management with statistics and export functionality
+ * 
+ * @component
+ * @returns {JSX.Element} The users data fetcher component
+ * 
+ * @example
+ * ```tsx
+ * <UsersDataFetcher />
+ * ```
+ */
 const UsersDataFetcher: React.FC = () => {
+  /** List of users from database */
   const [users, setUsers] = useState<User[]>([]);
+  /** Loading state during data operations */
   const [isLoading, setIsLoading] = useState(true);
+  /** Error message to display */
   const [error, setError] = useState('');
+  /** User statistics */
   const [stats, setStats] = useState({
     total: 0,
     active: 0,
@@ -35,6 +51,7 @@ const UsersDataFetcher: React.FC = () => {
     regularUsers: 0,
     drivers: 0
   });
+  /** Toast notification hook */
   const { toast } = useToast();
 
   const fetchAllUsers = async () => {

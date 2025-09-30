@@ -2,12 +2,22 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { database } from '@/lib/database';
 import { Driver } from '@/types/database';
 
+/**
+ * Driver authentication context interface providing driver management and authentication methods
+ * @interface DriverAuthContextType
+ */
 interface DriverAuthContextType {
+  /** Current authenticated driver or null if not logged in */
   driver: Driver | null;
+  /** Loading state for authentication operations */
   isLoading: boolean;
+  /** Boolean indicating if driver is currently authenticated */
   isAuthenticated: boolean;
+  /** Login with email and password */
   login: (email: string, password: string) => Promise<boolean>;
+  /** Login with phone number and password */
   loginWithPhone: (phone: string, password: string) => Promise<boolean>;
+  /** Register a new driver account */
   register: (driverData: {
     name: string;
     email: string;
@@ -16,17 +26,40 @@ interface DriverAuthContextType {
     vehicleNumber: string;
     licenseNumber: string;
   }) => Promise<boolean>;
+  /** Logout current driver */
   logout: () => void;
+  /** Update driver profile information */
   updateProfile: (updates: Partial<Omit<Driver, 'id' | 'createdAt' | 'updatedAt' | 'password'>>) => Promise<boolean>;
+  /** Change driver password */
   changePassword: (currentPassword: string, newPassword: string) => Promise<boolean>;
+  /** Update driver status (available, busy, offline) */
   updateStatus: (status: 'available' | 'busy' | 'offline') => Promise<boolean>;
+  /** Update driver location coordinates */
   updateLocation: (latitude: number, longitude: number) => Promise<boolean>;
 }
 
 const DriverAuthContext = createContext<DriverAuthContextType | undefined>(undefined);
 
+/**
+ * Driver authentication provider component that manages driver authentication state
+ * Provides driver authentication methods and driver data to child components
+ * 
+ * @component
+ * @param {Object} props - Component props
+ * @param {ReactNode} props.children - Child components to wrap
+ * @returns {JSX.Element} The driver authentication provider component
+ * 
+ * @example
+ * ```tsx
+ * <DriverAuthProvider>
+ *   <DriverApp />
+ * </DriverAuthProvider>
+ * ```
+ */
 export const DriverAuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  /** Current authenticated driver state */
   const [driver, setDriver] = useState<Driver | null>(null);
+  /** Loading state for authentication operations */
   const [isLoading, setIsLoading] = useState(true);
 
   // Check for existing session on mount

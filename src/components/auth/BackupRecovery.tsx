@@ -8,23 +8,53 @@ import { Badge } from '@/components/ui/badge';
 import { Loader2, ArrowLeft, Shield, Phone, Mail, Key, CheckCircle } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
+/**
+ * Props for the BackupRecovery component
+ * @interface BackupRecoveryProps
+ */
 interface BackupRecoveryProps {
+  /** Function to go back to login form */
   onBackToLogin: () => void;
+  /** Optional success callback */
   onSuccess?: () => void;
 }
 
+/**
+ * Backup recovery component for account recovery
+ * Provides multiple recovery methods including phone, email, and security questions
+ * 
+ * @component
+ * @param {BackupRecoveryProps} props - Component props
+ * @returns {JSX.Element} The backup recovery component
+ * 
+ * @example
+ * ```tsx
+ * <BackupRecovery
+ *   onBackToLogin={() => setMode('login')}
+ *   onSuccess={() => navigate('/dashboard')}
+ * />
+ * ```
+ */
 const BackupRecovery: React.FC<BackupRecoveryProps> = ({ 
   onBackToLogin, 
   onSuccess 
 }) => {
+  /** Selected recovery method */
   const [recoveryMethod, setRecoveryMethod] = useState<'phone' | 'email' | 'security'>('phone');
+  /** Phone number for recovery */
   const [phone, setPhone] = useState('');
+  /** Email address for recovery */
   const [email, setEmail] = useState('');
+  /** Security answer for recovery */
   const [securityAnswer, setSecurityAnswer] = useState('');
+  /** Loading state during recovery */
   const [isLoading, setIsLoading] = useState(false);
+  /** Whether recovery was successful */
   const [isRecovered, setIsRecovered] = useState(false);
+  /** Error message to display */
   const [error, setError] = useState('');
   
+  /** Authentication context */
   const { sendOTP, resetPassword } = useAuth();
 
   const handlePhoneRecovery = async (e: React.FormEvent) => {

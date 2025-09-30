@@ -26,28 +26,64 @@ import {
 } from 'lucide-react';
 import { useDriverAuth } from '@/hooks/useDriverAuth';
 
+/**
+ * Location interface for geographic coordinates
+ * @interface Location
+ */
 interface Location {
+  /** Latitude coordinate */
   latitude: number;
+  /** Longitude coordinate */
   longitude: number;
+  /** Human-readable address */
   address: string;
 }
 
+/**
+ * Ride request interface for driver route management
+ * @interface RideRequest
+ */
 interface RideRequest {
+  /** Unique ride request ID */
   id: string;
+  /** User who requested the ride */
   userId: string;
+  /** Pickup location details */
   pickupLocation: Location;
+  /** Destination location details */
   destination: Location;
+  /** Current ride status */
   status: 'pending' | 'accepted' | 'in_progress' | 'completed';
+  /** Ride fare in rupees */
   fare: number;
+  /** Distance in kilometers */
   distance: number;
+  /** Estimated time in minutes */
   estimatedTime: number;
+  /** User's phone number */
   userPhone: string;
+  /** Optional user notes */
   userNotes?: string;
 }
 
+/**
+ * Driver route map page component
+ * Displays driver's current location, available rides, and route management
+ * 
+ * @component
+ * @returns {JSX.Element} The driver route map component
+ * 
+ * @example
+ * ```tsx
+ * <DriverRouteMap />
+ * ```
+ */
 const DriverRouteMap: React.FC = () => {
+  /** Navigation hook */
   const navigate = useNavigate();
+  /** Driver authentication context */
   const { driver, updateLocation, updateStatus, logout } = useDriverAuth();
+  /** Driver's current location */
   const [currentLocation, setCurrentLocation] = useState<Location | null>(null);
   const [currentRide, setCurrentRide] = useState<RideRequest | null>(null);
   const [navigationMode, setNavigationMode] = useState<'idle' | 'to_pickup' | 'to_destination' | 'completed'>('idle');

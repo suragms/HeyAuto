@@ -6,10 +6,26 @@ import { Users, Database, Copy, Download } from 'lucide-react';
 import { database } from '@/lib/database';
 import { useToast } from '@/hooks/use-toast';
 
+/**
+ * Quick users fetch component for admin dashboard
+ * Provides fast user data retrieval and export functionality
+ * 
+ * @component
+ * @returns {JSX.Element} The quick users fetch component
+ * 
+ * @example
+ * ```tsx
+ * <QuickUsersFetch />
+ * ```
+ */
 const QuickUsersFetch: React.FC = () => {
+  /** List of users fetched from database */
   const [users, setUsers] = useState<any[]>([]);
+  /** Loading state during fetch operation */
   const [isLoading, setIsLoading] = useState(false);
+  /** Error message to display */
   const [error, setError] = useState('');
+  /** Toast notification hook */
   const { toast } = useToast();
 
   const fetchUsers = async () => {

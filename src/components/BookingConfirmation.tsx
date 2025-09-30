@@ -3,20 +3,52 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, MapPin, Clock, IndianRupee } from 'lucide-react';
 
+/**
+ * Booking details interface
+ * @interface BookingDetails
+ */
 interface BookingDetails {
+  /** Pickup location */
   pickup: string;
+  /** Destination location */
   destination: string;
+  /** Distance in kilometers */
   distance: number;
+  /** Fare in rupees */
   fare: number;
+  /** Estimated time of arrival in minutes */
   eta: number;
 }
 
+/**
+ * Props for the BookingConfirmation component
+ * @interface BookingConfirmationProps
+ */
 interface BookingConfirmationProps {
+  /** Booking details to display */
   bookingDetails: BookingDetails;
+  /** Function to confirm the booking */
   onConfirm: () => void;
+  /** Function to cancel the booking */
   onCancel: () => void;
 }
 
+/**
+ * Booking confirmation component that displays booking details before confirmation
+ * 
+ * @component
+ * @param {BookingConfirmationProps} props - Component props
+ * @returns {JSX.Element} The booking confirmation component
+ * 
+ * @example
+ * ```tsx
+ * <BookingConfirmation 
+ *   bookingDetails={bookingDetails}
+ *   onConfirm={handleConfirm}
+ *   onCancel={handleCancel}
+ * />
+ * ```
+ */
 const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
   bookingDetails,
   onConfirm,

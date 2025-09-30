@@ -3,12 +3,44 @@ import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Tooltip provider component for tooltip context
+ * Must wrap the application to enable tooltip functionality
+ */
 const TooltipProvider = TooltipPrimitive.Provider;
 
+/**
+ * Tooltip root component
+ * Main tooltip component that manages tooltip state
+ */
 const Tooltip = TooltipPrimitive.Root;
 
+/**
+ * Tooltip trigger component
+ * Element that triggers the tooltip on hover or focus
+ */
 const TooltipTrigger = TooltipPrimitive.Trigger;
 
+/**
+ * Tooltip content component
+ * The actual tooltip content that appears on hover
+ * 
+ * @component
+ * @param {React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>} props - Tooltip content props
+ * @returns {JSX.Element} The tooltip content component
+ * 
+ * @example
+ * ```tsx
+ * <TooltipProvider>
+ *   <Tooltip>
+ *     <TooltipTrigger>Hover me</TooltipTrigger>
+ *     <TooltipContent>
+ *       <p>Tooltip content</p>
+ *     </TooltipContent>
+ *   </Tooltip>
+ * </TooltipProvider>
+ * ```
+ */
 const TooltipContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>

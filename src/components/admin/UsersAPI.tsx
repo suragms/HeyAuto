@@ -6,9 +6,24 @@ import { Code, Copy, Download, Users, Database } from 'lucide-react';
 import { database } from '@/lib/database';
 import { useToast } from '@/hooks/use-toast';
 
+/**
+ * Users API component for admin dashboard
+ * Provides API endpoints and data access for user management
+ * 
+ * @component
+ * @returns {JSX.Element} The users API component
+ * 
+ * @example
+ * ```tsx
+ * <UsersAPI />
+ * ```
+ */
 const UsersAPI: React.FC = () => {
+  /** All users data from API */
   const [allUsers, setAllUsers] = useState<any>(null);
+  /** Loading state during API calls */
   const [isLoading, setIsLoading] = useState(false);
+  /** Toast notification hook */
   const { toast } = useToast();
 
   const fetchAllUsersData = async () => {

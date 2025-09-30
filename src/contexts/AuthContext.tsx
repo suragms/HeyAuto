@@ -2,28 +2,65 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { database } from '@/lib/database';
 import { User } from '@/types/database';
 
+/**
+ * Authentication context interface providing user management and authentication methods
+ * @interface AuthContextType
+ */
 interface AuthContextType {
+  /** Current authenticated user or null if not logged in */
   user: User | null;
+  /** Loading state for authentication operations */
   isLoading: boolean;
+  /** Boolean indicating if user is currently authenticated */
   isAuthenticated: boolean;
+  /** Login with email and password */
   login: (email: string, password: string) => Promise<boolean>;
+  /** Login with phone number and password */
   loginWithPhone: (phone: string, password: string) => Promise<boolean>;
+  /** Register a new user account */
   register: (name: string, email: string, phone: string, password: string) => Promise<boolean>;
+  /** Logout current user */
   logout: () => void;
+  /** Update user profile information */
   updateProfile: (updates: Partial<Omit<User, 'id' | 'createdAt' | 'updatedAt' | 'password'>>) => Promise<boolean>;
+  /** Reset user password via email */
   resetPassword: (email: string) => Promise<boolean>;
+  /** Verify OTP for phone number authentication */
   verifyOTP: (phone: string, otp: string) => Promise<boolean>;
+  /** Send OTP to phone number */
   sendOTP: (phone: string) => Promise<boolean>;
+  /** Login with Google OAuth */
   loginWithGoogle: () => Promise<boolean>;
+  /** Login with GitHub OAuth */
   loginWithGithub: () => Promise<boolean>;
+  /** Change user password */
   changePassword: (currentPassword: string, newPassword: string) => Promise<boolean>;
+  /** Get database statistics */
   getDatabaseStats: () => Promise<any>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+/**
+ * Authentication provider component that manages user authentication state
+ * Provides authentication methods and user data to child components
+ * 
+ * @component
+ * @param {Object} props - Component props
+ * @param {ReactNode} props.children - Child components to wrap
+ * @returns {JSX.Element} The authentication provider component
+ * 
+ * @example
+ * ```tsx
+ * <AuthProvider>
+ *   <App />
+ * </AuthProvider>
+ * ```
+ */
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  /** Current authenticated user state */
   const [user, setUser] = useState<User | null>(null);
+  /** Loading state for authentication operations */
   const [isLoading, setIsLoading] = useState(true);
 
   // Check for existing session on mount

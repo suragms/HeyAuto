@@ -36,11 +36,28 @@ import {
 import { useDriverAuth } from '@/hooks/useDriverAuth';
 import { RideRequest } from '@/types/database';
 
+/**
+ * Driver dashboard page component
+ * Main interface for drivers to manage rides, view earnings, and update status
+ * 
+ * @component
+ * @returns {JSX.Element} The driver dashboard component
+ * 
+ * @example
+ * ```tsx
+ * <DriverDashboard />
+ * ```
+ */
 const DriverDashboard: React.FC = () => {
+  /** Navigation hook */
   const navigate = useNavigate();
+  /** Driver authentication context */
   const { driver, updateStatus, logout, updateLocation } = useDriverAuth();
+  /** List of available ride requests */
   const [rideRequests, setRideRequests] = useState<RideRequest[]>([]);
+  /** Currently active ride */
   const [currentRide, setCurrentRide] = useState<RideRequest | null>(null);
+  /** Driver earnings data */
   const [earnings, setEarnings] = useState({
     today: 0,
     week: 0,

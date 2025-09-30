@@ -3,7 +3,20 @@ import { useDriverAuth } from '@/hooks/useDriverAuth';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
+/**
+ * Driver profile test component for development and testing
+ * Provides testing tools for driver authentication and profile management
+ * 
+ * @component
+ * @returns {JSX.Element} The driver profile test component
+ * 
+ * @example
+ * ```tsx
+ * <DriverProfileTest />
+ * ```
+ */
 const DriverProfileTest: React.FC = () => {
+  /** Driver authentication context */
   const { driver, isLoading, isAuthenticated, logout } = useDriverAuth();
 
   const handleLogin = async () => {

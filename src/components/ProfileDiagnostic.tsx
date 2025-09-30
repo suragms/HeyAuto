@@ -5,8 +5,22 @@ import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { database } from '@/lib/database';
 
+/**
+ * Profile diagnostic component for development and debugging
+ * Provides comprehensive diagnostics for driver authentication and profile state
+ * 
+ * @component
+ * @returns {JSX.Element} The profile diagnostic component
+ * 
+ * @example
+ * ```tsx
+ * <ProfileDiagnostic />
+ * ```
+ */
 const ProfileDiagnostic: React.FC = () => {
+  /** Driver authentication context */
   const { driver, isAuthenticated, isLoading } = useDriverAuth();
+  /** Diagnostic results and state information */
   const [diagnostics, setDiagnostics] = useState<any>({});
 
   useEffect(() => {

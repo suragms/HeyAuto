@@ -2,6 +2,14 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { 
   LogOut, 
   Car, 
@@ -17,16 +25,33 @@ import {
   Download,
   MessageCircle,
   Phone,
-  Settings
+  Settings,
+  ChevronDown,
+  User
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import autorickshawHero from '@/assets/autorickshaw-hero.png';
 
+/**
+ * Landing page component for the HeyAuto application
+ * Displays the main marketing page with features, pricing, and navigation options
+ * 
+ * @component
+ * @returns {JSX.Element} The landing page component
+ * 
+ * @example
+ * ```tsx
+ * <LandingPage />
+ * ```
+ */
 const LandingPage: React.FC = () => {
+  /** Navigation hook */
   const navigate = useNavigate();
+  /** User authentication context */
   const { isAuthenticated, logout } = useAuth();
+  /** Toast notification hook */
   const { toast } = useToast();
 
   const handleGetStarted = () => {
@@ -138,28 +163,40 @@ const LandingPage: React.FC = () => {
                 </Button>
               ) : (
                 <div className="flex space-x-2">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button 
+                        size="sm"
+                        className="bg-primary hover:bg-primary/90"
+                      >
+                        <User className="mr-2 h-4 w-4" />
+                        Login
+                        <ChevronDown className="ml-2 h-4 w-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-48">
+                      <DropdownMenuLabel>Choose Login Type</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem onClick={handleGetStarted}>
+                        <User className="mr-2 h-4 w-4" />
+                        <span>Passenger Login</span>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={handleDriverLogin}>
+                        <Car className="mr-2 h-4 w-4" />
+                        <span>Driver Login</span>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={handleAdminLogin}>
+                        <Settings className="mr-2 h-4 w-4" />
+                        <span>Admin Login</span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                   <Button 
                     onClick={handleGetStarted}
                     size="sm"
-                    className="bg-primary hover:bg-primary/90"
+                    variant="outline"
                   >
                     Get Started
-                  </Button>
-                  <Button 
-                    onClick={handleDriverLogin}
-                    variant="outline"
-                    size="sm"
-                  >
-                    <Car className="mr-2 h-4 w-4" />
-                    Driver
-                  </Button>
-                  <Button 
-                    onClick={handleAdminLogin}
-                    variant="outline"
-                    size="sm"
-                  >
-                    <Settings className="mr-2 h-4 w-4" />
-                    Admin
                   </Button>
                 </div>
               )}

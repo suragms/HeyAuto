@@ -3,8 +3,20 @@ import * as TabsPrimitive from "@radix-ui/react-tabs";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Tabs root component
+ * Main tabs component that manages tab state
+ */
 const Tabs = TabsPrimitive.Root;
 
+/**
+ * Tabs list component
+ * Container for tab triggers
+ * 
+ * @component
+ * @param {React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>} props - Tabs list props
+ * @returns {JSX.Element} The tabs list component
+ */
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
@@ -20,6 +32,14 @@ const TabsList = React.forwardRef<
 ));
 TabsList.displayName = TabsPrimitive.List.displayName;
 
+/**
+ * Tabs trigger component
+ * Individual tab trigger button
+ * 
+ * @component
+ * @param {React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>} props - Tabs trigger props
+ * @returns {JSX.Element} The tabs trigger component
+ */
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>

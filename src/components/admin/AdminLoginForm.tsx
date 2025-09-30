@@ -7,13 +7,31 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
 import { useAdminAuth } from '@/contexts/AdminAuthContext';
 
+/**
+ * Admin login form component
+ * Handles admin authentication with secure credentials
+ * 
+ * @component
+ * @returns {JSX.Element} The admin login form component
+ * 
+ * @example
+ * ```tsx
+ * <AdminLoginForm />
+ * ```
+ */
 const AdminLoginForm: React.FC = () => {
+  /** Admin email address */
   const [email, setEmail] = useState('');
+  /** Admin password */
   const [password, setPassword] = useState('');
+  /** Whether password is visible */
   const [showPassword, setShowPassword] = useState(false);
+  /** Error message to display */
   const [error, setError] = useState('');
+  /** Loading state during authentication */
   const [isLoading, setIsLoading] = useState(false);
   
+  /** Admin authentication context */
   const { login } = useAdminAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {

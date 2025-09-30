@@ -42,11 +42,28 @@ import {
 } from 'lucide-react';
 import { useDriverAuth } from '@/hooks/useDriverAuth';
 
+/**
+ * Driver profile component for managing driver information
+ * Displays and allows editing of driver profile, vehicle details, and settings
+ * 
+ * @component
+ * @returns {JSX.Element} The driver profile component
+ * 
+ * @example
+ * ```tsx
+ * <DriverProfile />
+ * ```
+ */
 const DriverProfile: React.FC = () => {
+  /** Navigation hook */
   const navigate = useNavigate();
+  /** Driver authentication context */
   const { driver, updateProfile, logout, updateStatus, isLoading, changePassword } = useDriverAuth();
+  /** Whether profile is in editing mode */
   const [isEditing, setIsEditing] = useState(false);
+  /** Whether password is in editing mode */
   const [isEditingPassword, setIsEditingPassword] = useState(false);
+  /** Active tab in the profile interface */
   const [activeTab, setActiveTab] = useState('profile');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');

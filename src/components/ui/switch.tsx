@@ -3,6 +3,22 @@ import * as SwitchPrimitives from "@radix-ui/react-switch";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Switch component for toggle functionality
+ * Built on top of Radix UI Switch primitive for accessibility
+ * 
+ * @component
+ * @param {React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>} props - Switch props
+ * @returns {JSX.Element} The switch component
+ * 
+ * @example
+ * ```tsx
+ * <Switch
+ *   checked={isEnabled}
+ *   onCheckedChange={setIsEnabled}
+ * />
+ * ```
+ */
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>

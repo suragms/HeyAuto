@@ -1,41 +1,82 @@
+/**
+ * Booking history item interface
+ * @interface BookingHistoryItem
+ */
 export interface BookingHistoryItem {
+  /** Unique booking identifier */
   id: string;
+  /** Pickup location */
   pickup: string;
+  /** Destination location */
   destination: string;
+  /** Distance in kilometers */
   distance: number;
+  /** Fare in rupees */
   fare: number;
+  /** Driver information */
   driver: {
+    /** Driver ID */
     id: number;
+    /** Driver name */
     name: string;
+    /** Vehicle number */
     vehicle_number: string;
   };
+  /** Booking status */
   status: 'completed' | 'cancelled' | 'in_progress';
+  /** Booking date */
   bookingDate: string;
+  /** Completion date (optional) */
   completedDate?: string;
-  duration?: number; // in minutes
+  /** Trip duration in minutes (optional) */
+  duration?: number;
+  /** User rating (optional) */
   rating?: number;
+  /** User feedback (optional) */
   feedback?: string;
 }
 
+/**
+ * Booking history filters interface
+ * @interface BookingHistoryFilters
+ */
 export interface BookingHistoryFilters {
+  /** Filter by booking status */
   status?: 'all' | 'completed' | 'cancelled' | 'in_progress';
+  /** Filter by date range */
   dateRange?: {
+    /** Start date */
     start: string;
+    /** End date */
     end: string;
   };
+  /** Filter by driver name */
   driver?: string;
 }
 
+/**
+ * Booking history manager class for handling user booking history
+ * Provides methods to manage booking history with localStorage persistence
+ */
 class BookingHistoryManager {
+  /** Storage key for booking history */
   private readonly STORAGE_KEY = 'autonow_booking_history';
+  /** Current user ID for user-specific storage */
   private currentUserId: string | null = null;
 
-  // Set current user ID
+  /**
+   * Set current user ID for user-specific storage
+   * @param {string | null} userId - User ID or null to clear
+   */
   setCurrentUser(userId: string | null): void {
     this.currentUserId = userId;
   }
 
-  // Get user-specific storage key
+  /**
+   * Get user-specific storage key
+   * @returns {string} Storage key for current user
+   * @private
+   */
   private getUserStorageKey(): string {
     return this.currentUserId ? `${this.STORAGE_KEY}_${this.currentUserId}` : this.STORAGE_KEY;
   }

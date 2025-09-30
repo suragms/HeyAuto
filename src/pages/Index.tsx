@@ -4,8 +4,21 @@ import BookingInterface from '@/components/BookingInterface';
 import BookingHistory from '@/components/BookingHistory';
 import NavigationHeader from '@/components/NavigationHeader';
 
+/**
+ * Main index page component that handles navigation between home and history
+ * 
+ * @component
+ * @returns {JSX.Element} The index page component
+ * 
+ * @example
+ * ```tsx
+ * <Index />
+ * ```
+ */
 const Index = () => {
+  /** Current page state (home or history) */
   const [currentPage, setCurrentPage] = useState<'home' | 'history'>('home');
+  /** Navigation hook */
   const navigate = useNavigate();
 
   const handleNavigate = (page: 'home' | 'history') => {

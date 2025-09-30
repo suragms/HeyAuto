@@ -3,13 +3,38 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Github, Mail } from 'lucide-react';
 
+/**
+ * Props for the SocialLogin component
+ * @interface SocialLoginProps
+ */
 interface SocialLoginProps {
+  /** Callback for Google login */
   onGoogleLogin?: () => void;
+  /** Callback for GitHub login */
   onGithubLogin?: () => void;
+  /** Callback for email login */
   onEmailLogin?: () => void;
+  /** Loading state */
   isLoading?: boolean;
 }
 
+/**
+ * Social login component with Google and GitHub authentication options
+ * 
+ * @component
+ * @param {SocialLoginProps} props - Component props
+ * @returns {JSX.Element} The social login component
+ * 
+ * @example
+ * ```tsx
+ * <SocialLogin 
+ *   onGoogleLogin={handleGoogleLogin}
+ *   onGithubLogin={handleGithubLogin}
+ *   onEmailLogin={handleEmailLogin}
+ *   isLoading={isLoading}
+ * />
+ * ```
+ */
 const SocialLogin: React.FC<SocialLoginProps> = ({
   onGoogleLogin,
   onGithubLogin,

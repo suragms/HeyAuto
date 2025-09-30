@@ -6,11 +6,32 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Car, Shield, AlertTriangle } from 'lucide-react';
 
+/**
+ * Props for the DriverProtectedRoute component
+ * @interface DriverProtectedRouteProps
+ */
 interface DriverProtectedRouteProps {
+  /** Child components to render if authenticated */
   children: React.ReactNode;
 }
 
+/**
+ * Driver protected route component that requires driver authentication
+ * Redirects unauthenticated users to driver login page
+ * 
+ * @component
+ * @param {DriverProtectedRouteProps} props - Component props
+ * @returns {JSX.Element} The driver protected route component
+ * 
+ * @example
+ * ```tsx
+ * <DriverProtectedRoute>
+ *   <DriverDashboard />
+ * </DriverProtectedRoute>
+ * ```
+ */
 const DriverProtectedRoute: React.FC<DriverProtectedRouteProps> = ({ children }) => {
+  /** Driver authentication state, loading status, and driver data */
   const { isAuthenticated, isLoading, driver } = useDriverAuth();
 
   if (isLoading) {

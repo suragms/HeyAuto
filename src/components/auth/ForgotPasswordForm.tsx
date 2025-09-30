@@ -7,20 +7,46 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, ArrowLeft, CheckCircle, Mail } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
+/**
+ * Props for the ForgotPasswordForm component
+ * @interface ForgotPasswordFormProps
+ */
 interface ForgotPasswordFormProps {
+  /** Function to go back to login form */
   onBackToLogin: () => void;
+  /** Optional callback when password reset is successful */
   onSuccess?: () => void;
 }
 
+/**
+ * Forgot password form component for password reset functionality
+ * 
+ * @component
+ * @param {ForgotPasswordFormProps} props - Component props
+ * @returns {JSX.Element} The forgot password form component
+ * 
+ * @example
+ * ```tsx
+ * <ForgotPasswordForm 
+ *   onBackToLogin={() => setMode('login')}
+ *   onSuccess={() => setMode('recovery')}
+ * />
+ * ```
+ */
 const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({ 
   onBackToLogin, 
   onSuccess 
 }) => {
+  /** User's email address */
   const [email, setEmail] = useState('');
+  /** Loading state during password reset */
   const [isLoading, setIsLoading] = useState(false);
+  /** Whether form has been submitted successfully */
   const [isSubmitted, setIsSubmitted] = useState(false);
+  /** Error message to display */
   const [error, setError] = useState('');
   
+  /** Authentication context */
   const { resetPassword } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {

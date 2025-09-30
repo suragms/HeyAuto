@@ -7,24 +7,57 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Eye, EyeOff, CheckCircle } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
+/**
+ * Props for the RegisterForm component
+ * @interface RegisterFormProps
+ */
 interface RegisterFormProps {
+  /** Function to switch to login form */
   onSwitchToLogin: () => void;
+  /** Optional callback when registration is successful */
   onSuccess?: () => void;
 }
 
+/**
+ * Registration form component for creating new user accounts
+ * 
+ * @component
+ * @param {RegisterFormProps} props - Component props
+ * @returns {JSX.Element} The registration form component
+ * 
+ * @example
+ * ```tsx
+ * <RegisterForm 
+ *   onSwitchToLogin={() => setMode('login')}
+ *   onSuccess={() => navigate('/')}
+ * />
+ * ```
+ */
 const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin, onSuccess }) => {
+  /** User's full name */
   const [name, setName] = useState('');
+  /** User's email address */
   const [email, setEmail] = useState('');
+  /** User's phone number */
   const [phone, setPhone] = useState('');
+  /** User's password */
   const [password, setPassword] = useState('');
+  /** Password confirmation */
   const [confirmPassword, setConfirmPassword] = useState('');
+  /** Whether password is visible */
   const [showPassword, setShowPassword] = useState(false);
+  /** Whether confirm password is visible */
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  /** Error message to display */
   const [error, setError] = useState('');
+  /** Loading state during registration */
   const [isLoading, setIsLoading] = useState(false);
+  /** Success state after registration */
   const [isSuccess, setIsSuccess] = useState(false);
+  /** Countdown timer for success message */
   const [countdown, setCountdown] = useState(3);
   
+  /** Authentication context */
   const { register } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {

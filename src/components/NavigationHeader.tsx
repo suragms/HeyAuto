@@ -8,21 +8,49 @@ import autorickshawHero from '@/assets/autorickshaw-hero.png';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 
+/**
+ * Props for the NavigationHeader component
+ * @interface NavigationHeaderProps
+ */
 interface NavigationHeaderProps {
+  /** Current active page */
   currentPage: 'home' | 'history';
+  /** Function to handle page navigation */
   onNavigate: (page: 'home' | 'history') => void;
+  /** Optional menu click handler */
   onMenuClick?: () => void;
+  /** Optional profile click handler */
   onProfileClick?: () => void;
 }
 
+/**
+ * Navigation header component with user menu and page navigation
+ * Displays app logo, navigation tabs, and user profile dropdown
+ * 
+ * @component
+ * @param {NavigationHeaderProps} props - Component props
+ * @returns {JSX.Element} The navigation header component
+ * 
+ * @example
+ * ```tsx
+ * <NavigationHeader 
+ *   currentPage="home"
+ *   onNavigate={handleNavigate}
+ *   onProfileClick={handleProfileClick}
+ * />
+ * ```
+ */
 const NavigationHeader: React.FC<NavigationHeaderProps> = ({ 
   currentPage, 
   onNavigate, 
   onMenuClick,
   onProfileClick
 }) => {
+  /** Authentication context */
   const { user, logout } = useAuth();
+  /** Toast notification hook */
   const { toast } = useToast();
+  /** Navigation hook */
   const navigate = useNavigate();
 
   const handleLogout = () => {

@@ -1,10 +1,11 @@
 import { User, UserSession, PasswordReset, DatabaseStats, DatabaseConfig, Driver, DriverSession } from '@/types/database';
 
-// Database configuration
+/** Database version */
 const DB_VERSION = '1.0.0';
+/** Database key prefix for localStorage */
 const DB_PREFIX = 'autonow_db_';
 
-// Storage keys
+/** Storage keys for different data types */
 const USERS_KEY = `${DB_PREFIX}users`;
 const SESSIONS_KEY = `${DB_PREFIX}sessions`;
 const PASSWORD_RESETS_KEY = `${DB_PREFIX}password_resets`;
@@ -12,7 +13,10 @@ const CONFIG_KEY = `${DB_PREFIX}config`;
 const DRIVERS_KEY = `${DB_PREFIX}drivers`;
 const DRIVER_SESSIONS_KEY = `${DB_PREFIX}driver_sessions`;
 
-// Initialize database configuration
+/**
+ * Initialize database configuration
+ * @returns {DatabaseConfig} Database configuration object
+ */
 const initializeDatabase = (): DatabaseConfig => {
   const config: DatabaseConfig = {
     version: DB_VERSION,
@@ -31,7 +35,12 @@ const initializeDatabase = (): DatabaseConfig => {
   }
 };
 
-// Simple password hashing (in production, use bcrypt or similar)
+/**
+ * Simple password hashing function
+ * Note: In production, use bcrypt or similar secure hashing
+ * @param {string} password - Plain text password
+ * @returns {string} Hashed password
+ */
 const hashPassword = (password: string): string => {
   // Simple hash - in production use proper hashing
   let hash = 0;
@@ -43,7 +52,12 @@ const hashPassword = (password: string): string => {
   return Math.abs(hash).toString(36) + password.length.toString();
 };
 
-// Verify password
+/**
+ * Verify password against hashed password
+ * @param {string} password - Plain text password
+ * @param {string} hashedPassword - Hashed password to compare against
+ * @returns {boolean} True if password matches
+ */
 const verifyPassword = (password: string, hashedPassword: string): boolean => {
   return hashPassword(password) === hashedPassword;
 };

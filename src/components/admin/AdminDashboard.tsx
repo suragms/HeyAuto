@@ -27,18 +27,43 @@ import UsersDataFetcher from './UsersDataFetcher';
 import UsersAPI from './UsersAPI';
 import QuickUsersFetch from './QuickUsersFetch';
 
+/**
+ * Dashboard statistics interface
+ * @interface DashboardStats
+ */
 interface DashboardStats {
+  /** Total number of users */
   totalUsers: number;
+  /** Number of active users */
   activeUsers: number;
+  /** Total number of drivers */
   totalDrivers: number;
+  /** Number of active drivers */
   activeDrivers: number;
+  /** Number of verified drivers */
   verifiedDrivers: number;
+  /** Total number of sessions */
   totalSessions: number;
+  /** Number of online drivers */
   onlineDrivers: number;
 }
 
+/**
+ * Admin dashboard component for system management
+ * Provides overview statistics, user management, and data export functionality
+ * 
+ * @component
+ * @returns {JSX.Element} The admin dashboard component
+ * 
+ * @example
+ * ```tsx
+ * <AdminDashboard />
+ * ```
+ */
 const AdminDashboard: React.FC = () => {
+  /** Admin authentication context */
   const { admin, logout } = useAdminAuth();
+  /** Dashboard statistics */
   const [stats, setStats] = useState<DashboardStats>({
     totalUsers: 0,
     activeUsers: 0,

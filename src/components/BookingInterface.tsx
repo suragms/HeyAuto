@@ -11,33 +11,80 @@ import { useAuth } from '@/hooks/useAuth';
 import { bookingHistoryManager } from '@/lib/bookingHistory';
 import autorickshawHero from '@/assets/autorickshaw-hero.png';
 
+/**
+ * Represents a driver in the system
+ * @interface Driver
+ */
 interface Driver {
+  /** Unique identifier for the driver */
   id: number;
+  /** Driver's full name */
   name: string;
+  /** Vehicle registration number */
   vehicle_number: string;
+  /** Current status of the driver (available, busy, offline) */
   status: string;
 }
 
+/**
+ * Represents the different steps in the booking process
+ * @type BookingStep
+ */
 type BookingStep = 'input' | 'confirmation' | 'trip';
 
+/**
+ * Contains all details for a booking
+ * @interface BookingDetails
+ */
 interface BookingDetails {
+  /** Pickup location text */
   pickup: string;
+  /** Destination location text */
   destination: string;
+  /** Distance in kilometers */
   distance: number;
+  /** Calculated fare in rupees */
   fare: number;
+  /** Estimated time of arrival in minutes */
   eta: number;
+  /** Assigned driver information */
   driver: Driver | null;
+  /** OTP for verification */
   otp: string | null;
 }
 
+/**
+ * Main booking interface component that handles the complete booking flow
+ * 
+ * This component manages the three-step booking process:
+ * 1. Input: User enters pickup and destination
+ * 2. Confirmation: Shows fare and ETA before confirming
+ * 3. Trip: Shows driver details and OTP for verification
+ * 
+ * @component
+ * @returns {JSX.Element} The booking interface component
+ * 
+ * @example
+ * ```tsx
+ * <BookingInterface />
+ * ```
+ */
 const BookingInterface: React.FC = () => {
+  /** Current step in the booking process */
   const [step, setStep] = useState<BookingStep>('input');
+  /** User's current GPS coordinates [latitude, longitude] */
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
+  /** Human-readable location text */
   const [locationText, setLocationText] = useState('Getting your location...');
+  /** Destination entered by user */
   const [destination, setDestination] = useState('');
+  /** Complete booking details including driver and OTP */
   const [bookingDetails, setBookingDetails] = useState<BookingDetails | null>(null);
+  /** Loading state for location detection */
   const [isLocating, setIsLocating] = useState(false);
+  /** Toast notification hook */
   const { toast } = useToast();
+  /** Authentication context */
   const { user } = useAuth();
 
   // Set current user for booking history
@@ -47,14 +94,35 @@ const BookingInterface: React.FC = () => {
     }
   }, [user]);
 
-  // Simulate fare calculation
+  /**
+   * Calculates the fare based on distance
+   * @param {number} distance - Distance in kilometers
+   * @returns {number} Calculated fare in rupees
+   * 
+   * @example
+   * ```tsx
+   * const fare = calculateFare(5.2); // Returns 87
+   * ```
+   */
   const calculateFare = (distance: number): number => {
     const baseFare = 25;
     const costPerKm = 12;
     return Math.round(baseFare + (costPerKm * distance));
   };
 
-  // Simulate driver assignment
+  /**
+   * Assigns a random available driver and generates OTP
+   * @returns {Object} Object containing driver and OTP
+   * @returns {Driver} returns.driver - Assigned driver information
+   * @returns {string} returns.otp - 4-digit OTP for verification
+   * 
+   * @example
+   * ```tsx
+   * const { driver, otp } = assignDriver();
+   * console.log(driver.name); // "Sunil P."
+   * console.log(otp); // "1234"
+   * ```
+   */
   const assignDriver = (): { driver: Driver; otp: string } => {
     const availableDrivers: Driver[] = [
       { id: 1, name: "Sunil P.", vehicle_number: "KL 47 B 5501", status: "available" },
@@ -69,7 +137,20 @@ const BookingInterface: React.FC = () => {
     return { driver: randomDriver, otp };
   };
 
-  // Get user location
+  /**
+   * Gets the user's current location using the Geolocation API
+   * Updates the locationText state with a human-readable address
+   * 
+   * @async
+   * @function getUserLocation
+   * @returns {Promise<void>}
+   * 
+   * @example
+   * ```tsx
+   * await getUserLocation();
+   * // locationText will be updated with current address
+   * ```
+   */
   const getUserLocation = () => {
     setIsLocating(true);
     setLocationText('Getting your location...');
@@ -117,7 +198,21 @@ const BookingInterface: React.FC = () => {
     );
   };
 
-  // Find auto (show confirmation screen)
+  /**
+   * Handles the "Find Auto" button click
+   * Validates destination input and calculates fare/ETA
+   * Moves to confirmation step
+   * 
+   * @function handleFindAuto
+   * @returns {void}
+   * 
+   * @example
+   * ```tsx
+   * // User enters destination and clicks "Find Auto"
+   * handleFindAuto();
+   * // Moves to confirmation step with calculated fare
+   * ```
+   */
   const handleFindAuto = () => {
     if (!destination.trim()) {
       toast({
@@ -145,7 +240,21 @@ const BookingInterface: React.FC = () => {
     setStep('confirmation');
   };
 
-  // Confirm booking
+  /**
+   * Confirms the booking and assigns a driver
+   * Generates OTP and saves booking to history
+   * Moves to trip step
+   * 
+   * @function handleConfirmBooking
+   * @returns {void}
+   * 
+   * @example
+   * ```tsx
+   * // User confirms booking from confirmation screen
+   * handleConfirmBooking();
+   * // Driver assigned, OTP generated, moves to trip step
+   * ```
+   */
   const handleConfirmBooking = () => {
     if (!bookingDetails) return;
 
@@ -177,7 +286,21 @@ const BookingInterface: React.FC = () => {
     });
   };
 
-  // Reset booking
+  /**
+   * Resets the booking interface to initial state
+   * Clears destination and booking details
+   * Returns to input step
+   * 
+   * @function handleNewBooking
+   * @returns {void}
+   * 
+   * @example
+   * ```tsx
+   * // User wants to make a new booking
+   * handleNewBooking();
+   * // Interface resets to input step
+   * ```
+   */
   const handleNewBooking = () => {
     setStep('input');
     setDestination('');

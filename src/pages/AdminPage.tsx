@@ -5,7 +5,20 @@ import AdminDashboard from '@/components/admin/AdminDashboard';
 import AdminProtectedRoute from '@/components/admin/AdminProtectedRoute';
 import { useAdminAuth } from '@/contexts/AdminAuthContext';
 
+/**
+ * Admin page component that handles admin routing and authentication
+ * Manages admin login and dashboard access
+ * 
+ * @component
+ * @returns {JSX.Element} The admin page component
+ * 
+ * @example
+ * ```tsx
+ * <AdminPage />
+ * ```
+ */
 const AdminPage: React.FC = () => {
+  /** Admin authentication state and loading status */
   const { isAuthenticated, isLoading } = useAdminAuth();
 
   if (isLoading) {

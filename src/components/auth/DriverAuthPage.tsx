@@ -6,15 +6,40 @@ import DriverLoginForm from './DriverLoginForm';
 import DriverSignupForm from './DriverSignupForm';
 import DriverPhoneLoginForm from './DriverPhoneLoginForm';
 
+/**
+ * Driver authentication mode types
+ * @type DriverAuthMode
+ */
 type DriverAuthMode = 'login' | 'register' | 'phone-login';
 
+/**
+ * Props for the DriverAuthPage component
+ * @interface DriverAuthPageProps
+ */
 interface DriverAuthPageProps {
+  /** Initial authentication mode */
   initialMode?: DriverAuthMode;
 }
 
+/**
+ * Driver authentication page component
+ * Handles driver login, registration, and phone authentication
+ * 
+ * @component
+ * @param {DriverAuthPageProps} props - Component props
+ * @returns {JSX.Element} The driver authentication page component
+ * 
+ * @example
+ * ```tsx
+ * <DriverAuthPage initialMode="login" />
+ * ```
+ */
 const DriverAuthPage: React.FC<DriverAuthPageProps> = ({ initialMode = 'login' }) => {
+  /** Current authentication mode */
   const [authMode, setAuthMode] = useState<DriverAuthMode>(initialMode);
+  /** Navigation hook */
   const navigate = useNavigate();
+  /** Driver authentication context */
   const { isAuthenticated, isLoading } = useDriverAuth();
 
   console.log('DriverAuthPage: Rendering with authMode:', authMode, 'isAuthenticated:', isAuthenticated, 'isLoading:', isLoading);

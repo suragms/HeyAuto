@@ -2,11 +2,32 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAdminAuth } from '@/contexts/AdminAuthContext';
 
+/**
+ * Props for the AdminProtectedRoute component
+ * @interface AdminProtectedRouteProps
+ */
 interface AdminProtectedRouteProps {
+  /** Child components to render if authenticated */
   children: React.ReactNode;
 }
 
+/**
+ * Admin protected route component that requires admin authentication
+ * Redirects unauthenticated users to admin login page
+ * 
+ * @component
+ * @param {AdminProtectedRouteProps} props - Component props
+ * @returns {JSX.Element} The admin protected route component
+ * 
+ * @example
+ * ```tsx
+ * <AdminProtectedRoute>
+ *   <AdminDashboard />
+ * </AdminProtectedRoute>
+ * ```
+ */
 const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({ children }) => {
+  /** Admin authentication state and loading status */
   const { isAuthenticated, isLoading } = useAdminAuth();
 
   if (isLoading) {

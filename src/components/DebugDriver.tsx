@@ -4,7 +4,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { database } from '@/lib/database';
 
+/**
+ * Debug driver component for development and testing
+ * Provides debugging tools for driver authentication and database operations
+ * 
+ * @component
+ * @returns {JSX.Element} The debug driver component
+ * 
+ * @example
+ * ```tsx
+ * <DebugDriver />
+ * ```
+ */
 const DebugDriver: React.FC = () => {
+  /** Driver authentication context */
   const { driver, isAuthenticated, isLoading } = useDriverAuth();
 
   useEffect(() => {

@@ -7,24 +7,55 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Eye, EyeOff, Car, Phone, CheckCircle, Loader2 } from 'lucide-react';
 import { useDriverAuth } from '@/hooks/useDriverAuth';
 
+/**
+ * Props for the DriverLoginForm component
+ * @interface DriverLoginFormProps
+ */
 interface DriverLoginFormProps {
+  /** Function to switch to registration form */
   onSwitchToRegister: () => void;
+  /** Function to switch to phone login form */
   onSwitchToPhoneLogin: () => void;
+  /** Optional success callback */
   onSuccess?: () => void;
 }
 
+/**
+ * Driver login form component
+ * Handles driver authentication with email and password
+ * 
+ * @component
+ * @param {DriverLoginFormProps} props - Component props
+ * @returns {JSX.Element} The driver login form component
+ * 
+ * @example
+ * ```tsx
+ * <DriverLoginForm
+ *   onSwitchToRegister={() => setMode('register')}
+ *   onSwitchToPhoneLogin={() => setMode('phone')}
+ *   onSuccess={() => navigate('/dashboard')}
+ * />
+ * ```
+ */
 const DriverLoginForm: React.FC<DriverLoginFormProps> = ({ 
   onSwitchToRegister, 
   onSwitchToPhoneLogin,
   onSuccess 
 }) => {
+  /** Driver's email address */
   const [email, setEmail] = useState('');
+  /** Driver's password */
   const [password, setPassword] = useState('');
+  /** Whether password is visible */
   const [showPassword, setShowPassword] = useState(false);
+  /** Error message to display */
   const [error, setError] = useState('');
+  /** Loading state during authentication */
   const [isLoading, setIsLoading] = useState(false);
+  /** Success state after authentication */
   const [isSuccess, setIsSuccess] = useState(false);
   
+  /** Driver authentication context */
   const { login } = useDriverAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {

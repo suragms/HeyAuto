@@ -37,16 +37,30 @@ import {
 } from 'lucide-react';
 import { useDriverAuth } from '@/hooks/useDriverAuth';
 
+/**
+ * Auto details interface for vehicle information
+ * @interface AutoDetails
+ */
 interface AutoDetails {
+  /** Vehicle ID */
   id: string;
+  /** Vehicle registration number */
   vehicleNumber: string;
+  /** Vehicle manufacturer */
   make: string;
+  /** Vehicle model */
   model: string;
+  /** Manufacturing year */
   year: number;
+  /** Vehicle color */
   color: string;
+  /** Fuel type */
   fuelType: 'petrol' | 'diesel' | 'electric' | 'hybrid';
+  /** Engine capacity */
   engineCapacity: string;
+  /** Seating capacity */
   seatingCapacity: number;
+  /** Registration date */
   registrationDate: string;
   insuranceExpiry: string;
   pollutionCertificate: string;
@@ -66,12 +80,30 @@ interface AutoDetails {
   };
 }
 
+/**
+ * Auto details page component for vehicle management
+ * Displays and manages driver's vehicle information, documents, and maintenance
+ * 
+ * @component
+ * @returns {JSX.Element} The auto details component
+ * 
+ * @example
+ * ```tsx
+ * <AutoDetails />
+ * ```
+ */
 const AutoDetails: React.FC = () => {
+  /** Navigation hook */
   const navigate = useNavigate();
+  /** Driver authentication context */
   const { driver, updateProfile, logout } = useDriverAuth();
+  /** Active tab in the interface */
   const [activeTab, setActiveTab] = useState('overview');
+  /** Whether editing mode is active */
   const [isEditing, setIsEditing] = useState(false);
+  /** Error message to display */
   const [error, setError] = useState('');
+  /** Success message to display */
   const [success, setSuccess] = useState('');
   const [autoDetails, setAutoDetails] = useState<AutoDetails>({
     id: driver?.id || '',

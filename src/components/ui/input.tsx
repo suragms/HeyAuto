@@ -2,6 +2,24 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Input component for form inputs
+ * Styled input field with consistent design and accessibility features
+ * 
+ * @component
+ * @param {React.ComponentProps<"input">} props - Input element props
+ * @returns {JSX.Element} The input component
+ * 
+ * @example
+ * ```tsx
+ * <Input 
+ *   type="email" 
+ *   placeholder="Enter your email"
+ *   value={email}
+ *   onChange={(e) => setEmail(e.target.value)}
+ * />
+ * ```
+ */
 const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
   ({ className, type, ...props }, ref) => {
     return (

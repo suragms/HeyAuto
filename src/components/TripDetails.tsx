@@ -6,36 +6,85 @@ import autorickshawHero from '@/assets/autorickshaw-hero.png';
 import { bookingHistoryManager } from '@/lib/bookingHistory';
 import { useToast } from '@/hooks/use-toast';
 
+/**
+ * Driver interface for trip details
+ * @interface Driver
+ */
 interface Driver {
+  /** Driver ID */
   id: number;
+  /** Driver name */
   name: string;
+  /** Vehicle number */
   vehicle_number: string;
+  /** Driver status */
   status: string;
 }
 
+/**
+ * Booking details interface for trip
+ * @interface BookingDetails
+ */
 interface BookingDetails {
+  /** Pickup location */
   pickup: string;
+  /** Destination location */
   destination: string;
+  /** Distance in kilometers */
   distance: number;
+  /** Fare in rupees */
   fare: number;
+  /** Estimated time of arrival in minutes */
   eta: number;
+  /** Driver information */
   driver: Driver;
+  /** OTP for verification */
   otp: string;
 }
 
+/**
+ * Props for the TripDetails component
+ * @interface TripDetailsProps
+ */
 interface TripDetailsProps {
+  /** Booking details for the trip */
   bookingDetails: BookingDetails;
+  /** Function to start a new booking */
   onNewBooking: () => void;
 }
 
+/**
+ * Trip details component that displays active trip information and progress
+ * Shows driver details, OTP, trip progress, and payment options
+ * 
+ * @component
+ * @param {TripDetailsProps} props - Component props
+ * @returns {JSX.Element} The trip details component
+ * 
+ * @example
+ * ```tsx
+ * <TripDetails 
+ *   bookingDetails={bookingDetails}
+ *   onNewBooking={handleNewBooking}
+ * />
+ * ```
+ */
 const TripDetails: React.FC<TripDetailsProps> = ({ bookingDetails, onNewBooking }) => {
+  /** Whether trip has been completed */
   const [tripCompleted, setTripCompleted] = useState(false);
+  /** Current booking ID */
   const [bookingId, setBookingId] = useState<string | null>(null);
-  const [tripProgress, setTripProgress] = useState(0); // 0-100 percentage
+  /** Trip progress percentage (0-100) */
+  const [tripProgress, setTripProgress] = useState(0);
+  /** Whether payment section is visible */
   const [showPayment, setShowPayment] = useState(false);
+  /** Selected payment method */
   const [paymentMethod, setPaymentMethod] = useState<'cash' | 'card' | 'upi' | null>(null);
-  const [remainingTime, setRemainingTime] = useState(0); // in seconds
-  const [totalTripTime, setTotalTripTime] = useState(0); // in seconds
+  /** Remaining time in seconds */
+  const [remainingTime, setRemainingTime] = useState(0);
+  /** Total trip time in seconds */
+  const [totalTripTime, setTotalTripTime] = useState(0);
+  /** Toast notification hook */
   const { toast } = useToast();
 
   // Format remaining time

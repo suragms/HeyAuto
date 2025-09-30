@@ -3,14 +3,38 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapPin } from 'lucide-react';
 
+/**
+ * Props for the BookingMap component
+ * @interface BookingMapProps
+ */
 interface BookingMapProps {
+  /** User's current location coordinates [latitude, longitude] */
   userLocation: [number, number] | null;
+  /** Optional CSS class name */
   className?: string;
 }
 
+/**
+ * Interactive map component for displaying user location and booking areas
+ * 
+ * @component
+ * @param {BookingMapProps} props - Component props
+ * @returns {JSX.Element} The booking map component
+ * 
+ * @example
+ * ```tsx
+ * <BookingMap 
+ *   userLocation={[10.8505, 76.2711]}
+ *   className="h-64 w-full"
+ * />
+ * ```
+ */
 const BookingMap: React.FC<BookingMapProps> = ({ userLocation, className = "" }) => {
+  /** Reference to the map container div */
   const mapContainer = useRef<HTMLDivElement>(null);
+  /** Reference to the Leaflet map instance */
   const map = useRef<L.Map | null>(null);
+  /** Reference to the location marker */
   const marker = useRef<L.Marker | null>(null);
 
   useEffect(() => {

@@ -7,15 +7,38 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Eye, EyeOff, Car, CheckCircle, Loader2 } from 'lucide-react';
 import { useDriverAuth } from '@/hooks/useDriverAuth';
 
+/**
+ * Props for the DriverSignupForm component
+ * @interface DriverSignupFormProps
+ */
 interface DriverSignupFormProps {
+  /** Function to switch to login form */
   onSwitchToLogin: () => void;
+  /** Optional success callback */
   onSuccess?: () => void;
 }
 
+/**
+ * Driver signup form component
+ * Handles driver registration with personal and vehicle information
+ * 
+ * @component
+ * @param {DriverSignupFormProps} props - Component props
+ * @returns {JSX.Element} The driver signup form component
+ * 
+ * @example
+ * ```tsx
+ * <DriverSignupForm
+ *   onSwitchToLogin={() => setMode('login')}
+ *   onSuccess={() => navigate('/dashboard')}
+ * />
+ * ```
+ */
 const DriverSignupForm: React.FC<DriverSignupFormProps> = ({ 
   onSwitchToLogin,
   onSuccess 
 }) => {
+  /** Form data for driver registration */
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,13 +48,20 @@ const DriverSignupForm: React.FC<DriverSignupFormProps> = ({
     vehicleNumber: '',
     licenseNumber: ''
   });
+  /** Whether password is visible */
   const [showPassword, setShowPassword] = useState(false);
+  /** Whether confirm password is visible */
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  /** Error message to display */
   const [error, setError] = useState('');
+  /** Success state after registration */
   const [success, setSuccess] = useState(false);
+  /** Loading state during registration */
   const [isLoading, setIsLoading] = useState(false);
+  /** Redirecting state after successful registration */
   const [isRedirecting, setIsRedirecting] = useState(false);
   
+  /** Driver authentication context */
   const { register } = useDriverAuth();
 
   const handleInputChange = (field: string, value: string) => {

@@ -3,7 +3,20 @@ import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Home, MapPin } from "lucide-react";
 
+/**
+ * 404 Not Found page component
+ * Displays when user navigates to a non-existent route
+ * 
+ * @component
+ * @returns {JSX.Element} The not found page component
+ * 
+ * @example
+ * ```tsx
+ * <NotFound />
+ * ```
+ */
 const NotFound = () => {
+  /** Current location object from router */
   const location = useLocation();
 
   useEffect(() => {

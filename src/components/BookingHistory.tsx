@@ -24,17 +24,41 @@ import {
 import { bookingHistoryManager, BookingHistoryItem, BookingHistoryFilters } from '@/lib/bookingHistory';
 import { useToast } from '@/hooks/use-toast';
 
+/**
+ * Props for the BookingHistory component
+ * @interface BookingHistoryProps
+ */
 interface BookingHistoryProps {
+  /** Function to go back to previous page */
   onBack: () => void;
 }
 
+/**
+ * Booking history component that displays and manages user's booking history
+ * 
+ * @component
+ * @param {BookingHistoryProps} props - Component props
+ * @returns {JSX.Element} The booking history component
+ * 
+ * @example
+ * ```tsx
+ * <BookingHistory onBack={() => setCurrentPage('home')} />
+ * ```
+ */
 const BookingHistory: React.FC<BookingHistoryProps> = ({ onBack }) => {
+  /** All user bookings */
   const [bookings, setBookings] = useState<BookingHistoryItem[]>([]);
+  /** Filtered bookings based on current filters */
   const [filteredBookings, setFilteredBookings] = useState<BookingHistoryItem[]>([]);
+  /** Current filter settings */
   const [filters, setFilters] = useState<BookingHistoryFilters>({ status: 'all' });
+  /** Search term for filtering bookings */
   const [searchTerm, setSearchTerm] = useState('');
+  /** Booking statistics */
   const [stats, setStats] = useState(bookingHistoryManager.getStats());
+  /** Loading state while fetching bookings */
   const [loading, setLoading] = useState(true);
+  /** Toast notification hook */
   const { toast } = useToast();
 
   useEffect(() => {

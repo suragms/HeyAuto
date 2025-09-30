@@ -4,8 +4,22 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useDriverAuth } from '@/hooks/useDriverAuth';
 
+/**
+ * Navigation test component for driver routes
+ * Provides testing interface for driver navigation and authentication
+ * 
+ * @component
+ * @returns {JSX.Element} The navigation test component
+ * 
+ * @example
+ * ```tsx
+ * <NavigationTest />
+ * ```
+ */
 const NavigationTest: React.FC = () => {
+  /** Navigation hook */
   const navigate = useNavigate();
+  /** Driver authentication context */
   const { isAuthenticated, driver } = useDriverAuth();
 
   const testNavigation = (path: string) => {

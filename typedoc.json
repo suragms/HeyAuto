@@ -1,0 +1,37 @@
+{
+  "entryPoints": ["src"],
+  "out": "docs",
+  "exclude": [
+    "**/*.test.*",
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**"
+  ],
+  "excludeExternals": true,
+  "excludePrivate": false,
+  "excludeProtected": false,
+  "excludeInternal": false,
+  "includeVersion": true,
+  "sort": ["source-order"],
+  "categorizeByGroup": true,
+  "defaultCategory": "Other",
+  "categoryOrder": [
+    "Pages",
+    "Components",
+    "Hooks",
+    "Contexts",
+    "Utilities",
+    "Types",
+    "Other"
+  ],
+  "navigation": {
+    "includeCategories": true
+  },
+  "theme": "default",
+  "name": "HeyAuto - Auto Rickshaw Booking App",
+  "readme": "README.md",
+  "includeSource": true,
+  "sourceLinkTemplate": "https://github.com/your-username/heyauto-app/blob/main/{path}#L{line}",
+  "gitRevision": "main",
+  "gitRemote": "origin"
+}

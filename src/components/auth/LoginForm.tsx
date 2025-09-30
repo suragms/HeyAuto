@@ -8,14 +8,41 @@ import { Loader2, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import SocialLogin from './SocialLogin';
 
+/**
+ * Props for the LoginForm component
+ * @interface LoginFormProps
+ */
 interface LoginFormProps {
+  /** Function to switch to registration form */
   onSwitchToRegister: () => void;
+  /** Function to switch to backup login form */
   onSwitchToBackup: () => void;
+  /** Function to switch to forgot password form */
   onSwitchToForgotPassword: () => void;
+  /** Function to switch to recovery form */
   onSwitchToRecovery: () => void;
+  /** Optional callback when login is successful */
   onSuccess?: () => void;
 }
 
+/**
+ * Login form component with email/password authentication and social login options
+ * 
+ * @component
+ * @param {LoginFormProps} props - Component props
+ * @returns {JSX.Element} The login form component
+ * 
+ * @example
+ * ```tsx
+ * <LoginForm 
+ *   onSwitchToRegister={() => setMode('register')}
+ *   onSwitchToBackup={() => setMode('backup')}
+ *   onSwitchToForgotPassword={() => setMode('forgot')}
+ *   onSwitchToRecovery={() => setMode('recovery')}
+ *   onSuccess={() => navigate('/')}
+ * />
+ * ```
+ */
 const LoginForm: React.FC<LoginFormProps> = ({ 
   onSwitchToRegister, 
   onSwitchToBackup, 
@@ -23,12 +50,18 @@ const LoginForm: React.FC<LoginFormProps> = ({
   onSwitchToRecovery,
   onSuccess 
 }) => {
+  /** User's email address */
   const [email, setEmail] = useState('');
+  /** User's password */
   const [password, setPassword] = useState('');
+  /** Whether password is visible */
   const [showPassword, setShowPassword] = useState(false);
+  /** Error message to display */
   const [error, setError] = useState('');
+  /** Loading state during authentication */
   const [isLoading, setIsLoading] = useState(false);
   
+  /** Authentication context */
   const { login, loginWithGoogle, loginWithGithub } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {

@@ -32,10 +32,18 @@ import "./lib/migrateData"; // Migrate existing data
 import "./lib/sampleData"; // Initialize sample data
 import "./lib/driverSampleData"; // Initialize driver sample data
 
+/** React Query client for data fetching and caching */
 const queryClient = new QueryClient();
 
-// Component to handle driver routes
+/**
+ * Component to handle driver-specific routes
+ * Manages driver authentication and routing
+ * 
+ * @component
+ * @returns {JSX.Element} The driver routes component
+ */
 const DriverRoutes = () => {
+  /** Driver authentication state and loading status */
   const { isAuthenticated: isDriverAuthenticated, isLoading: isDriverLoading } = useDriverAuth();
 
   console.log('DriverRoutes: Rendering with isDriverAuthenticated:', isDriverAuthenticated, 'isDriverLoading:', isDriverLoading);
@@ -102,8 +110,15 @@ const DriverRoutes = () => {
   );
 };
 
-// Component to handle route logic based on auth state
+/**
+ * Component to handle route logic based on authentication state
+ * Manages main application routing and authentication flow
+ * 
+ * @component
+ * @returns {JSX.Element} The app routes component
+ */
 const AppRoutes = () => {
+  /** User authentication state and loading status */
   const { isAuthenticated, isLoading } = useAuth();
 
   console.log('AppRoutes: Rendering with isAuthenticated:', isAuthenticated, 'isLoading:', isLoading);
@@ -188,6 +203,18 @@ const AppRoutes = () => {
   );
 };
 
+/**
+ * Main App component that provides all necessary providers and routing
+ * Sets up the application with authentication, query client, and routing
+ * 
+ * @component
+ * @returns {JSX.Element} The main app component
+ * 
+ * @example
+ * ```tsx
+ * <App />
+ * ```
+ */
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>

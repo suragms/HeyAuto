@@ -11,12 +11,30 @@ import { useAuth } from '@/hooks/useAuth';
 import { database } from '@/lib/database';
 import { DatabaseStats } from '@/types/database';
 
+/**
+ * Database manager component for admin dashboard
+ * Provides database management, backup, and statistics functionality
+ * 
+ * @component
+ * @returns {JSX.Element} The database manager component
+ * 
+ * @example
+ * ```tsx
+ * <DatabaseManager />
+ * ```
+ */
 const DatabaseManager: React.FC = () => {
+  /** User authentication context */
   const { user, getDatabaseStats } = useAuth();
+  /** Database statistics */
   const [stats, setStats] = useState<DatabaseStats | null>(null);
+  /** Loading state during operations */
   const [isLoading, setIsLoading] = useState(false);
+  /** Error message to display */
   const [error, setError] = useState('');
+  /** Success message to display */
   const [success, setSuccess] = useState('');
+  /** Backup data for export */
   const [backupData, setBackupData] = useState('');
 
   // Check if user is admin

@@ -1,25 +1,61 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
+/**
+ * Admin user interface
+ * @interface AdminUser
+ */
 interface AdminUser {
+  /** Unique admin identifier */
   id: string;
+  /** Admin email address */
   email: string;
+  /** Admin name */
   name: string;
+  /** Admin role (always 'admin') */
   role: 'admin';
+  /** Whether admin account is active */
   isActive: boolean;
 }
 
+/**
+ * Admin authentication context interface providing admin management and authentication methods
+ * @interface AdminAuthContextType
+ */
 interface AdminAuthContextType {
+  /** Current authenticated admin or null if not logged in */
   admin: AdminUser | null;
+  /** Loading state for authentication operations */
   isLoading: boolean;
+  /** Boolean indicating if admin is currently authenticated */
   isAuthenticated: boolean;
+  /** Login with email and password */
   login: (email: string, password: string) => Promise<boolean>;
+  /** Logout current admin */
   logout: () => void;
 }
 
 const AdminAuthContext = createContext<AdminAuthContextType | undefined>(undefined);
 
+/**
+ * Admin authentication provider component that manages admin authentication state
+ * Provides admin authentication methods and admin data to child components
+ * 
+ * @component
+ * @param {Object} props - Component props
+ * @param {ReactNode} props.children - Child components to wrap
+ * @returns {JSX.Element} The admin authentication provider component
+ * 
+ * @example
+ * ```tsx
+ * <AdminAuthProvider>
+ *   <AdminApp />
+ * </AdminAuthProvider>
+ * ```
+ */
 export const AdminAuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  /** Current authenticated admin state */
   const [admin, setAdmin] = useState<AdminUser | null>(null);
+  /** Loading state for authentication operations */
   const [isLoading, setIsLoading] = useState(true);
 
   // Admin credentials (hardcoded as requested)

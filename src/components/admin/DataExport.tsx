@@ -18,30 +18,67 @@ import { database } from '@/lib/database';
 import { User } from '@/types/database';
 import { useToast } from '@/hooks/use-toast';
 
+/**
+ * Driver interface for data export
+ * @interface Driver
+ */
 interface Driver {
+  /** Driver ID */
   id: string;
+  /** Driver name */
   name: string;
+  /** Driver email */
   email: string;
+  /** Driver phone number */
   phone: string;
+  /** Driver password (hashed) */
   password: string;
+  /** Vehicle registration number */
   vehicleNumber: string;
+  /** Type of vehicle */
   vehicleType: string;
+  /** Driver license number */
   licenseNumber: string;
+  /** Whether driver is active */
   isActive: boolean;
+  /** Whether driver is verified */
   isVerified: boolean;
+  /** Driver rating */
   rating: number;
+  /** Total number of rides */
   totalRides: number;
+  /** Driver status */
   status: string;
+  /** Account creation date */
   createdAt: string;
+  /** Last update date */
   updatedAt: string;
+  /** Last login date */
   lastLoginAt?: string;
 }
 
+/**
+ * Data export component for admin dashboard
+ * Provides functionality to export user and driver data in various formats
+ * 
+ * @component
+ * @returns {JSX.Element} The data export component
+ * 
+ * @example
+ * ```tsx
+ * <DataExport />
+ * ```
+ */
 const DataExport: React.FC = () => {
+  /** List of users to export */
   const [users, setUsers] = useState<User[]>([]);
+  /** List of drivers to export */
   const [drivers, setDrivers] = useState<Driver[]>([]);
+  /** Loading state during data fetch */
   const [isLoading, setIsLoading] = useState(true);
+  /** Error message to display */
   const [error, setError] = useState('');
+  /** Toast notification hook */
   const { toast } = useToast();
 
   const fetchAllData = async () => {

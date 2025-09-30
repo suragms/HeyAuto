@@ -7,11 +7,29 @@ import BackupLoginForm from './BackupLoginForm';
 import ForgotPasswordForm from './ForgotPasswordForm';
 import BackupRecovery from './BackupRecovery';
 
+/**
+ * Authentication mode types
+ * @type AuthMode
+ */
 type AuthMode = 'login' | 'register' | 'backup' | 'forgot-password' | 'recovery';
 
+/**
+ * Main authentication page component that handles multiple authentication modes
+ * 
+ * @component
+ * @returns {JSX.Element} The authentication page component
+ * 
+ * @example
+ * ```tsx
+ * <AuthPage />
+ * ```
+ */
 const AuthPage: React.FC = () => {
+  /** Current authentication mode */
   const [authMode, setAuthMode] = useState<AuthMode>('login');
+  /** Navigation hook */
   const navigate = useNavigate();
+  /** Authentication context */
   const { isAuthenticated, isLoading } = useAuth();
 
   // Show loading state while checking authentication

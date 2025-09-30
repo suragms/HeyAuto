@@ -3,7 +3,20 @@ import { useDriverAuth } from '@/hooks/useDriverAuth';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
+/**
+ * Simple driver profile component for testing and development
+ * Displays basic driver information and authentication status
+ * 
+ * @component
+ * @returns {JSX.Element} The simple driver profile component
+ * 
+ * @example
+ * ```tsx
+ * <SimpleDriverProfile />
+ * ```
+ */
 const SimpleDriverProfile: React.FC = () => {
+  /** Driver authentication context */
   const { driver, isLoading, isAuthenticated } = useDriverAuth();
 
   console.log('SimpleDriverProfile: Rendering with:', {

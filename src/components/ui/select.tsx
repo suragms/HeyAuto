@@ -4,12 +4,32 @@ import { Check, ChevronDown, ChevronUp } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Select root component
+ * Main select component that manages selection state
+ */
 const Select = SelectPrimitive.Root;
 
+/**
+ * Select group component
+ * Groups related select options together
+ */
 const SelectGroup = SelectPrimitive.Group;
 
+/**
+ * Select value component
+ * Displays the selected value
+ */
 const SelectValue = SelectPrimitive.Value;
 
+/**
+ * Select trigger component
+ * Button that opens the select dropdown
+ * 
+ * @component
+ * @param {React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>} props - Select trigger props
+ * @returns {JSX.Element} The select trigger component
+ */
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
